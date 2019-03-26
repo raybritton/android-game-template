@@ -38,9 +38,6 @@ abstract class View {
     fun render(c: Canvas) {
         c.translateAndClip(x, y, widthWithPadding(), heightWithPadding()) {
             c.drawColor(background)
-            translateAndClip(leftPadding, topPadding, w, h) {
-                draw(c)
-            }
             if (debugBounds) {
                 c.drawRect(
                     1f,
@@ -48,6 +45,9 @@ abstract class View {
                     widthWithPadding() - 1,
                     heightWithPadding() - 1,
                     debugPaint.apply { color = if (this@View is Layout) Color.YELLOW else Color.RED })
+            }
+            translateAndClip(leftPadding, topPadding, w, h) {
+                draw(c)
             }
         }
     }
