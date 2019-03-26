@@ -47,7 +47,7 @@ class LinearLayout(parent: Layout, private val orientation: Orientation) : BaseL
     override fun onMeasured(contentWidth: Float, contentHeight: Float) {
         super.onMeasured(contentWidth, contentHeight)
         var availableStretchSpace = when (orientation) {
-            Orientation.VERTICAL -> contentHeight
+            Orientation.VERTICAL -> contentHeight()
             Orientation.HORIZONTAL -> contentWidth()
         }
         children.filter { (it.layoutParams as LinearLayoutParams).weight == null }.forEach {
@@ -63,8 +63,10 @@ class LinearLayout(parent: Layout, private val orientation: Orientation) : BaseL
                 val newSize =
                     ((it.layoutParams as LinearLayoutParams).weight!! / totalWeighting) * availableStretchSpace
                 when (orientation) {
-                    Orientation.VERTICAL -> it.h = newSize
-                    Orientation.HORIZONTAL -> it.w = newSize
+                    Orientation.VERTICAL -> it.h =
+                        newSize - it.topPadding - it.bottomPadding - it.layoutParams.topMargin - it.layoutParams.bottomMargin
+                    Orientation.HORIZONTAL -> it.w =
+                        newSize - it.leftPadding - it.rightPadding - it.layoutParams.leftMargin - it.layoutParams.rightMargin
                 }
             }
         }
