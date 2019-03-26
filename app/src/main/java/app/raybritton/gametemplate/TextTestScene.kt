@@ -1,6 +1,7 @@
 package app.raybritton.gametemplate
 
 import android.graphics.Color
+import android.graphics.Paint
 import android.text.Layout
 import app.raybritton.gametemplate.android.Dimen
 import app.raybritton.gametemplate.system.GameThread
@@ -70,6 +71,8 @@ class TextTestScene(gameThread: GameThread) : Scene(gameThread) {
                     leftMargin = Dimen.dpToPx(32)
                     rightMargin = Dimen.dpToPx(32)
                 }
+                background.style = Paint.Style.STROKE
+                background.color = Color.MAGENTA
                 alignment = Layout.Alignment.ALIGN_CENTER
             }
             textView("[TEST]") {
@@ -116,10 +119,10 @@ class TextTestScene(gameThread: GameThread) : Scene(gameThread) {
                     rightMargin = Dimen.dpToPx(100)
                     bottomMargin = Dimen.dpToPx(100)
                 }
-                background = Color.WHITE
+                background.color = Color.WHITE
                 textView("HERE") {
                     frameLayoutParams(Size.EXACT(100f), Size.EXACT(100f), parentAnchor = Anchor.TOP_LEFT)
-                    background = Color.MAGENTA
+                    background.color = Color.MAGENTA
                 }
             }
 
@@ -194,11 +197,11 @@ class TextTestScene(gameThread: GameThread) : Scene(gameThread) {
                     linearLayoutParams {
                         weight = 1f
                     }
-                    background = Color.BLUE
+                    background.color = Color.BLUE
                 }
                 textView((" ")) {
                     linearLayoutParams(width = Size.EXACT(Dimen.dpToPx(50))) {}
-                    background = Color.RED
+                    background.color = Color.RED
                 }
             }
 
@@ -211,13 +214,13 @@ class TextTestScene(gameThread: GameThread) : Scene(gameThread) {
                     linearLayoutParams {
                         weight = 0.49f
                     }
-                    background = Color.GREEN
+                    background.color = Color.GREEN
                 }
                 textView((" ")) {
                     linearLayoutParams {
                         weight = 0.51f
                     }
-                    background = Color.RED
+                    background.color = Color.RED
                 }
             }
 
@@ -230,11 +233,11 @@ class TextTestScene(gameThread: GameThread) : Scene(gameThread) {
                     linearLayoutParams(width = Size.MATCH_PARENT) {
                         weight = 1f
                     }
-                    background = Color.GREEN
+                    background.color = Color.GREEN
                 }
                 textView((" ")) {
                     linearLayoutParams(width = Size.MATCH_PARENT, height = Size.EXACT(Dimen.dpToPx(50))) {}
-                    background = Color.RED
+                    background.color = Color.RED
                 }
             }
 
@@ -248,10 +251,10 @@ class TextTestScene(gameThread: GameThread) : Scene(gameThread) {
                     topMargin = Dimen.dpToPx(30)
                 }
                 button("Click me", {
-                    if (layout.background == Color.BLUE) {
-                        layout.background = Color.BLACK
+                    if (layout.background.color == Color.BLUE) {
+                        layout.background.color = Color.BLACK
                     } else {
-                        layout.background = Color.BLUE
+                        layout.background.color = Color.BLUE
                     }
                 }) {
                     linearLayoutParams(Size.WRAP_CONTENT, Size.WRAP_CONTENT) {}

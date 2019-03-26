@@ -7,7 +7,7 @@ import app.raybritton.gametemplate.view.FrameLayout.FrameLayoutParams
 
 fun Scene.frameLayout(block: FrameLayout.() -> Unit): FrameLayout {
     val layout = FrameLayout(this)
-    layout.background = Color.BLACK
+    layout.background.color = Color.BLACK
     layout.layoutParams = layout.frameLayoutParams(
         Size.MATCH_PARENT,
         Size.MATCH_PARENT,
@@ -20,7 +20,7 @@ fun Scene.frameLayout(block: FrameLayout.() -> Unit): FrameLayout {
 
 fun Scene.linearLayout(orientation: LinearLayout.Orientation, block: LinearLayout.() -> Unit): LinearLayout {
     val layout = LinearLayout(this, orientation)
-    layout.background = Color.BLACK
+    layout.background.color = Color.BLACK
     layout.layoutParams = layout.frameLayoutParams(
         Size.MATCH_PARENT,
         Size.MATCH_PARENT,

@@ -23,21 +23,24 @@ abstract class View {
     var leftPadding: Float = 0f
     var rightPadding: Float = 0f
     var bottomPadding: Float = 0f
-    var background: Int = Color.TRANSPARENT
+    val background = Paint().apply {
+        style = Paint.Style.FILL_AND_STROKE
+        color = Color.TRANSPARENT
+    }
     lateinit var layoutParams: LayoutParams
 
     fun contentWidth() = Math.max(0f, widthWithPadding() - leftPadding - rightPadding)
-    fun contentHeight() = Math.max(0f,heightWithPadding() - topPadding - bottomPadding)
+    fun contentHeight() = Math.max(0f, heightWithPadding() - topPadding - bottomPadding)
 
     fun widthWithPadding() = w
     fun heightWithPadding() = h
 
-    fun widthWithMargins() = Math.max(0f,widthWithPadding() + layoutParams.leftMargin + layoutParams.rightMargin)
-    fun heightWithMargins() = Math.max(0f,heightWithPadding() + layoutParams.topMargin + layoutParams.bottomMargin)
+    fun widthWithMargins() = Math.max(0f, widthWithPadding() + layoutParams.leftMargin + layoutParams.rightMargin)
+    fun heightWithMargins() = Math.max(0f, heightWithPadding() + layoutParams.topMargin + layoutParams.bottomMargin)
 
     fun render(c: Canvas) {
         c.translateAndClip(x, y, widthWithPadding(), heightWithPadding()) {
-            c.drawColor(background)
+            c.drawRect(0f, 0f, widthWithPadding() - 1f, heightWithPadding() - 1f, background)
             if (debugBounds) {
                 c.drawRect(
                     1f,
