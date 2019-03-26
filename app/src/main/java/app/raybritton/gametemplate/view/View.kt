@@ -11,7 +11,13 @@ abstract class View {
     var x: Float = 0f
     var y: Float = 0f
     var w: Float = 0f
+        set(value) {
+            field = Math.max(0f, value)
+        }
     var h: Float = 0f
+        set(value) {
+            field = Math.max(0f, value)
+        }
     var onClick: ((View) -> Unit)? = null
     var topPadding: Float = 0f
     var leftPadding: Float = 0f
@@ -20,14 +26,14 @@ abstract class View {
     var background: Int = Color.TRANSPARENT
     lateinit var layoutParams: LayoutParams
 
-    fun contentWidth() = w
-    fun contentHeight() = h
+    fun contentWidth() = Math.max(0f, widthWithPadding() - leftPadding - rightPadding)
+    fun contentHeight() = Math.max(0f,heightWithPadding() - topPadding - bottomPadding)
 
-    fun widthWithPadding() = contentWidth() + leftPadding + rightPadding
-    fun heightWithPadding() = contentHeight() + topPadding + bottomPadding
+    fun widthWithPadding() = w
+    fun heightWithPadding() = h
 
-    fun widthWithMargins() = widthWithPadding() + layoutParams.leftMargin + layoutParams.rightMargin
-    fun heightWithMargins() = heightWithPadding() + layoutParams.topMargin + layoutParams.bottomMargin
+    fun widthWithMargins() = Math.max(0f,widthWithPadding() + layoutParams.leftMargin + layoutParams.rightMargin)
+    fun heightWithMargins() = Math.max(0f,heightWithPadding() + layoutParams.topMargin + layoutParams.bottomMargin)
 
     fun render(c: Canvas) {
         c.translateAndClip(x, y, widthWithPadding(), heightWithPadding()) {
@@ -49,7 +55,8 @@ abstract class View {
     open fun handleTap(x: Float, y: Float): Boolean {
         if (onClick != null) {
             if (x > this.x && x < this.x + this.widthWithPadding() &&
-                    y > this.y && y < this.y + this.heightWithPadding()) {
+                y > this.y && y < this.y + this.heightWithPadding()
+            ) {
                 onClick?.invoke(this)
                 return true
             }
@@ -64,14 +71,14 @@ abstract class View {
         w = when (layoutParams.width) {
             is Size.EXACT -> (layoutParams.width as Size.EXACT).px
             Size.MATCH_PARENT -> parent.contentWidth() - (layoutParams.leftMargin) - (layoutParams.rightMargin)
-            Size.WRAP_CONTENT -> contentSize.x
+            Size.WRAP_CONTENT -> contentSize.x + leftPadding + rightPadding
         }
         h = when (layoutParams.height) {
             is Size.EXACT -> (layoutParams.height as Size.EXACT).px
             Size.MATCH_PARENT -> parent.contentHeight() - (layoutParams.topMargin) - (layoutParams.bottomMargin)
-            Size.WRAP_CONTENT -> contentSize.y
+            Size.WRAP_CONTENT -> contentSize.y + topPadding + bottomPadding
         }
-        onMeasured(w, h)
+        onMeasured(contentWidth(), contentHeight())
     }
 
     protected abstract fun getContentSize(maxW: Float, maxH: Float): PointF
