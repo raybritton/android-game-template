@@ -8,6 +8,9 @@ import app.raybritton.gametemplate.system.GameThread
 import app.raybritton.gametemplate.system.Scene
 import app.raybritton.gametemplate.view.*
 import app.raybritton.gametemplate.view.FrameLayout.FrameLayoutParams.*
+import app.raybritton.gametemplate.view.dsl.frameLayout
+import app.raybritton.gametemplate.view.dsl.frameLayoutParams
+import app.raybritton.gametemplate.view.dsl.textView
 
 class StartupScene(game: GameThread) : Scene(game) {
 

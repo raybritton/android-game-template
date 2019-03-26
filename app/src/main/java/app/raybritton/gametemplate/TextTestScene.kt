@@ -6,8 +6,10 @@ import android.text.Layout
 import app.raybritton.gametemplate.android.Dimen
 import app.raybritton.gametemplate.system.GameThread
 import app.raybritton.gametemplate.system.Scene
-import app.raybritton.gametemplate.view.*
 import app.raybritton.gametemplate.view.FrameLayout.FrameLayoutParams.*
+import app.raybritton.gametemplate.view.LinearLayout
+import app.raybritton.gametemplate.view.Size
+import app.raybritton.gametemplate.view.dsl.*
 
 class TextTestScene(gameThread: GameThread) : Scene(gameThread) {
     override val name: String = "Text test"
@@ -144,7 +146,7 @@ class TextTestScene(gameThread: GameThread) : Scene(gameThread) {
                 }
             }
 
-            linearLayout(LinearLayout.Orientation.HORIZONTAL) {
+            linearLayout {
                 frameLayoutParams(Size.WRAP_CONTENT, Size.WRAP_CONTENT, parentAnchor = Anchor.TOP_LEFT) {
                     topMargin = Dimen.dpToPx(100)
                     leftMargin = Dimen.dpToPx(100)
