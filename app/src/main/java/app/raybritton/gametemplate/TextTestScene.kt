@@ -177,7 +177,7 @@ class TextTestScene(gameThread: GameThread) : Scene(gameThread) {
                     topMargin = Dimen.dpToPx(60)
                 }
                 textView("A") {
-                    linearLayoutParams {  }
+                    linearLayoutParams { }
                 }
                 textView("B") {
                     linearLayoutParams {
@@ -227,7 +227,11 @@ class TextTestScene(gameThread: GameThread) : Scene(gameThread) {
             }
 
             linearLayout(LinearLayout.Orientation.VERTICAL) {
-                frameLayoutParams(width = Size.EXACT(Dimen.dpToPx(20)), height = Size.EXACT(Dimen.dpToPx(54)), parentAnchor = Anchor.LEFT) {
+                frameLayoutParams(
+                    width = Size.EXACT(Dimen.dpToPx(20)),
+                    height = Size.EXACT(Dimen.dpToPx(54)),
+                    parentAnchor = Anchor.LEFT
+                ) {
                     leftMargin = Dimen.dpToPx(20)
                     bottomMargin = Dimen.dpToPx(60)
                 }
@@ -261,8 +265,14 @@ class TextTestScene(gameThread: GameThread) : Scene(gameThread) {
                 }) {
                     linearLayoutParams(Size.WRAP_CONTENT, Size.WRAP_CONTENT) {}
                 }
-                toggleButton("Toggle me", {}) {
+                toggleButton("Toggle me", onClick = {}) {
                     linearLayoutParams(Size.WRAP_CONTENT, Size.WRAP_CONTENT) {}
+                }
+                toggleButton("TA", "group", {}) {
+                    linearLayoutParams(Size.EXACT(Dimen.dpToPx(48)))
+                }
+                toggleButton("TB", "group", {}) {
+                    linearLayoutParams(Size.EXACT(Dimen.dpToPx(48)))
                 }
             }
 
@@ -301,7 +311,7 @@ class TextTestScene(gameThread: GameThread) : Scene(gameThread) {
                 textView("<") {
                     linearLayoutParams {
                         gravity = LinearLayout.LinearLayoutParams.Gravity.CENTER
-                        rightMargin= Dimen.dpToPx(8)
+                        rightMargin = Dimen.dpToPx(8)
                     }
                 }
             }
@@ -341,7 +351,7 @@ class TextTestScene(gameThread: GameThread) : Scene(gameThread) {
                 textView("^") {
                     linearLayoutParams {
                         gravity = LinearLayout.LinearLayoutParams.Gravity.CENTER
-                        bottomMargin= Dimen.dpToPx(8)
+                        bottomMargin = Dimen.dpToPx(8)
                     }
                 }
             }

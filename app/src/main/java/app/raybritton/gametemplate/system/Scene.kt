@@ -6,6 +6,7 @@ import android.text.TextPaint
 import app.raybritton.gametemplate.android.Dimen
 import app.raybritton.gametemplate.view.BaseLayout
 import app.raybritton.gametemplate.view.Layout
+import app.raybritton.gametemplate.view.View
 
 abstract class Scene(var game: GameThread) : Layout {
     private var systemCallback: SceneCallback = game
@@ -25,6 +26,7 @@ abstract class Scene(var game: GameThread) : Layout {
         fun unloadScene(state: Map<String, Any>)
     }
 
+    override fun children() = listOf(layout)
     override fun contentWidth() = width
     override fun contentHeight() = height
     override fun sizingWidth() = width

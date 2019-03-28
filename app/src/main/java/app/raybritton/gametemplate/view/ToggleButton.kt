@@ -10,7 +10,12 @@ import app.raybritton.gametemplate.android.Dimen
 import app.raybritton.gametemplate.ext.translate
 import timber.log.Timber
 
-class ToggleButton(parent: BaseLayout, val text: CharSequence) : View(parent) {
+/**
+ * parent is the layout this view is contained in
+ * text is the text that will appear on the button
+ * toggleGroup is used to automatically untoggle other togglebuttons with the same toggleGroup, ignored if null
+ */
+class ToggleButton(parent: BaseLayout, val text: CharSequence, val toggleGroup: String? = null) : View(parent) {
     val textPaint = TextPaint().apply {
         color = Color.BLUE
         style = Paint.Style.FILL_AND_STROKE
@@ -32,6 +37,7 @@ class ToggleButton(parent: BaseLayout, val text: CharSequence) : View(parent) {
 
     var selected = false
 
+    private var otherToggleButtons = listOf<ToggleButton>()
     private val internalPadding = Dimen.dpToPx(2)
 
     private lateinit var textLayout: StaticLayout
@@ -51,6 +57,9 @@ class ToggleButton(parent: BaseLayout, val text: CharSequence) : View(parent) {
         if (super.handleTap(x, y)) {
             selected = !selected
             Timber.d("selected: $selected")
+            if (selected) {
+                otherToggleButtons.forEach { it.selected = false }
+            }
             return true
         } else {
             return false
@@ -65,11 +74,21 @@ class ToggleButton(parent: BaseLayout, val text: CharSequence) : View(parent) {
         textLayout = StaticLayout.Builder.obtain(text, 0, text.length, textPaint, maxW.toInt())
             .build()
         val textWidth = (0 until textLayout.lineCount).map { textLayout.getLineWidth(it) }.max() ?: 0f
-        return PointF(textWidth + internalPadding + internalPadding, textLayout.height.toFloat() + internalPadding + internalPadding)
+        return PointF(
+            textWidth + internalPadding + internalPadding,
+            textLayout.height.toFloat() + internalPadding + internalPadding
+        )
     }
 
     override fun onMeasured(contentWidth: Float, contentHeight: Float) {
         textLayout = StaticLayout.Builder.obtain(text, 0, text.length, textPaint, contentWidth.toInt())
             .build()
+
+        if (toggleGroup != null) {
+            otherToggleButtons = parent.children()
+                .filter { it is ToggleButton && it != this && it.toggleGroup == this.toggleGroup }
+                .map { it as ToggleButton }
+                .toList()
+        }
     }
 }
