@@ -97,7 +97,18 @@ abstract class View(protected val parent: Layout) {
         onMeasured(contentWidth(), contentHeight())
     }
 
+    /**
+     * Returns the size of the content
+     * maxW: Maximum width of content
+     * maxH: Maximum height of content
+     *
+     * If the size is greater than the maximums then it will be cut off
+     */
     protected abstract fun getContentSize(maxW: Float, maxH: Float): PointF
+
+    /**
+     * After being laid out and measured this is called with the width and height available to draw in
+     */
     abstract fun onMeasured(contentWidth: Float, contentHeight: Float)
 
     companion object {
