@@ -12,13 +12,21 @@ class LinearLayout(parent: Layout, private val orientation: Orientation) : BaseL
         children.forEach { child ->
             when (orientation) {
                 Orientation.VERTICAL -> {
-                    child.x = child.layoutParams.leftMargin
+                    child.x = when ((child.layoutParams as LinearLayoutParams).gravity) {
+                        LinearLayoutParams.Gravity.TOP_LEFT -> child.layoutParams.leftMargin
+                        LinearLayoutParams.Gravity.CENTER -> (contentWidth() * 0.5f) - (child.widthWithPadding() * 0.5f) + child.layoutParams.leftMargin - child.layoutParams.rightMargin
+                        LinearLayoutParams.Gravity.BOTTOM_RIGHT -> contentWidth() - child.widthWithPadding() - child.layoutParams.rightMargin
+                    }
                     child.y = pxOffset + child.layoutParams.topMargin
                     pxOffset += child.heightWithMargins()
                 }
                 Orientation.HORIZONTAL -> {
                     child.x = pxOffset + child.layoutParams.leftMargin
-                    child.y = child.layoutParams.topMargin
+                    child.y = when ((child.layoutParams as LinearLayoutParams).gravity) {
+                        LinearLayoutParams.Gravity.TOP_LEFT -> child.layoutParams.topMargin
+                        LinearLayoutParams.Gravity.CENTER -> (contentHeight() * 0.5f) - (child.heightWithPadding() * 0.5f) + child.layoutParams.topMargin - child.layoutParams.bottomMargin
+                        LinearLayoutParams.Gravity.BOTTOM_RIGHT -> contentHeight() - child.heightWithPadding() - child.layoutParams.bottomMargin
+                    }
                     pxOffset += child.widthWithMargins()
                 }
             }
@@ -75,5 +83,9 @@ class LinearLayout(parent: Layout, private val orientation: Orientation) : BaseL
 
     class LinearLayoutParams(width: Size, height: Size) : LayoutParams(width, height) {
         var weight: Float? = null
+        var gravity: Gravity = Gravity.TOP_LEFT
+        enum class Gravity {
+            TOP_LEFT, CENTER, BOTTOM_RIGHT
+        }
     }
 }

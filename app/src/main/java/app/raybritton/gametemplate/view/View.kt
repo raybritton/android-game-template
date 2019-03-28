@@ -26,6 +26,7 @@ abstract class View {
     val background = Paint().apply {
         style = Paint.Style.FILL_AND_STROKE
         color = Color.TRANSPARENT
+        strokeWidth = Dimen.dpToPx(1)
     }
     lateinit var layoutParams: LayoutParams
 

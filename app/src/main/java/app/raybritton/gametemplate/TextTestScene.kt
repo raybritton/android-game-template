@@ -265,6 +265,86 @@ class TextTestScene(gameThread: GameThread) : Scene(gameThread) {
                     linearLayoutParams(Size.WRAP_CONTENT, Size.WRAP_CONTENT) {}
                 }
             }
+
+            linearLayout(LinearLayout.Orientation.VERTICAL) {
+                background.style = Paint.Style.STROKE
+                background.color = Color.DKGRAY
+                frameLayoutParams(Size.WRAP_CONTENT, Size.WRAP_CONTENT, parentAnchor = Anchor.TOP_RIGHT) {
+                    topMargin = Dimen.dpToPx(220)
+                    rightMargin = Dimen.dpToPx(100)
+                }
+                textView("WIDE") {
+                    alignment = Layout.Alignment.ALIGN_CENTER
+                    linearLayoutParams(Size.EXACT(Dimen.dpToPx(60)))
+                }
+                textView("L") {
+                    linearLayoutParams {
+                        gravity = LinearLayout.LinearLayoutParams.Gravity.TOP_LEFT
+                    }
+                }
+                textView("C") {
+                    linearLayoutParams {
+                        gravity = LinearLayout.LinearLayoutParams.Gravity.CENTER
+                    }
+                }
+                textView("R") {
+                    linearLayoutParams {
+                        gravity = LinearLayout.LinearLayoutParams.Gravity.BOTTOM_RIGHT
+                    }
+                }
+                textView(">") {
+                    linearLayoutParams {
+                        gravity = LinearLayout.LinearLayoutParams.Gravity.CENTER
+                        leftMargin = Dimen.dpToPx(8)
+                    }
+                }
+                textView("<") {
+                    linearLayoutParams {
+                        gravity = LinearLayout.LinearLayoutParams.Gravity.CENTER
+                        rightMargin= Dimen.dpToPx(8)
+                    }
+                }
+            }
+
+            linearLayout(LinearLayout.Orientation.HORIZONTAL) {
+                background.style = Paint.Style.STROKE
+                background.color = Color.DKGRAY
+                frameLayoutParams(Size.WRAP_CONTENT, Size.WRAP_CONTENT, parentAnchor = Anchor.TOP_RIGHT) {
+                    topMargin = Dimen.dpToPx(220)
+                    rightMargin = Dimen.dpToPx(180)
+                }
+                textView("T\nA\nL\nL") {
+                    alignment = Layout.Alignment.ALIGN_CENTER
+                    linearLayoutParams(Size.EXACT(Dimen.dpToPx(60)))
+                }
+                textView("T") {
+                    linearLayoutParams {
+                        gravity = LinearLayout.LinearLayoutParams.Gravity.TOP_LEFT
+                    }
+                }
+                textView("C") {
+                    linearLayoutParams {
+                        gravity = LinearLayout.LinearLayoutParams.Gravity.CENTER
+                    }
+                }
+                textView("B") {
+                    linearLayoutParams {
+                        gravity = LinearLayout.LinearLayoutParams.Gravity.BOTTOM_RIGHT
+                    }
+                }
+                textView("v") {
+                    linearLayoutParams {
+                        gravity = LinearLayout.LinearLayoutParams.Gravity.CENTER
+                        topMargin = Dimen.dpToPx(8)
+                    }
+                }
+                textView("^") {
+                    linearLayoutParams {
+                        gravity = LinearLayout.LinearLayoutParams.Gravity.CENTER
+                        bottomMargin= Dimen.dpToPx(8)
+                    }
+                }
+            }
         }
     }
 
