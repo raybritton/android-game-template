@@ -7,7 +7,7 @@ import android.graphics.PointF
 import app.raybritton.gametemplate.android.Dimen
 import app.raybritton.gametemplate.ext.translateAndClip
 
-abstract class View {
+abstract class View(protected val parent: Layout) {
     //The top left corner
     var x: Float = 0f
     //The top left corner

@@ -10,7 +10,7 @@ import app.raybritton.gametemplate.android.Dimen
 import app.raybritton.gametemplate.ext.translate
 import timber.log.Timber
 
-class ToggleButton(val text: CharSequence) : View() {
+class ToggleButton(parent: BaseLayout, val text: CharSequence) : View(parent) {
     val textPaint = TextPaint().apply {
         color = Color.BLUE
         style = Paint.Style.FILL_AND_STROKE

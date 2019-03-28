@@ -11,9 +11,10 @@ interface Layout {
     fun sizingWidth(): Float
     //Returns the height of itself, or it's parent if this layout is WRAP_CONTENT
     fun sizingHeight(): Float
+    fun children(): List<View>
 }
 
-abstract class BaseLayout(private val parent: Layout) : View(), Layout {
+abstract class BaseLayout(parent: Layout) : View(parent), Layout {
     override val isRootLayout = false
     protected val children = mutableListOf<View>()
 
@@ -32,6 +33,8 @@ abstract class BaseLayout(private val parent: Layout) : View(), Layout {
             contentHeight()
         }
     }
+
+    override fun children() = children
 
     fun addChild(view: View) {
         children.add(view)

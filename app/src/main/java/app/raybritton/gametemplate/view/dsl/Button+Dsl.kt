@@ -6,7 +6,7 @@ import app.raybritton.gametemplate.view.Button
 import app.raybritton.gametemplate.view.View
 
 fun BaseLayout.button(text: CharSequence, onClick: (View) -> Unit, block: (Button.() -> Unit)? = null): Button {
-    val button = Button(text)
+    val button = Button(this, text)
     button.onClick = onClick
     button.leftPadding = Dimen.dpToPx(4)
     button.rightPadding = Dimen.dpToPx(4)

@@ -10,7 +10,7 @@ import android.text.TextPaint
 import app.raybritton.gametemplate.android.Dimen
 import app.raybritton.gametemplate.ext.translate
 
-open class Button(val text: CharSequence) : View() {
+open class Button(parent: BaseLayout, val text: CharSequence) : View(parent) {
     val textPaint = TextPaint().apply {
         color = Color.WHITE
         style = Paint.Style.FILL_AND_STROKE

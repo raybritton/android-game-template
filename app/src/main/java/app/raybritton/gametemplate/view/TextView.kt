@@ -9,7 +9,7 @@ import android.text.StaticLayout
 import android.text.TextPaint
 import app.raybritton.gametemplate.android.Dimen
 
-class TextView(val text: CharSequence) : View() {
+class TextView(parent: BaseLayout, val text: CharSequence) : View(parent) {
     val paint = TextPaint().apply {
         color = Color.WHITE
         style = Paint.Style.FILL_AND_STROKE
