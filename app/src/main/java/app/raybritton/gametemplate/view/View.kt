@@ -8,12 +8,16 @@ import app.raybritton.gametemplate.android.Dimen
 import app.raybritton.gametemplate.ext.translateAndClip
 
 abstract class View {
+    //The top left corner
     var x: Float = 0f
+    //The top left corner
     var y: Float = 0f
+    //Generally this shouldn't be set or get
     var w: Float = 0f
         set(value) {
             field = Math.max(0f, value)
         }
+    //Generally this shouldn't be set or get
     var h: Float = 0f
         set(value) {
             field = Math.max(0f, value)
@@ -23,6 +27,7 @@ abstract class View {
     var leftPadding: Float = 0f
     var rightPadding: Float = 0f
     var bottomPadding: Float = 0f
+    //Automatically drawn, adjust at any time to change the background
     val background = Paint().apply {
         style = Paint.Style.FILL_AND_STROKE
         color = Color.TRANSPARENT
@@ -30,13 +35,19 @@ abstract class View {
     }
     lateinit var layoutParams: LayoutParams
 
+    // The width of just the content
     fun contentWidth() = Math.max(0f, widthWithPadding() - leftPadding - rightPadding)
+    // The height of just the content
     fun contentHeight() = Math.max(0f, heightWithPadding() - topPadding - bottomPadding)
 
+    // The width of the content and padding
     fun widthWithPadding() = w
+    // The height of the content and padding
     fun heightWithPadding() = h
 
+    // The width of the content, padding and margins
     fun widthWithMargins() = Math.max(0f, widthWithPadding() + layoutParams.leftMargin + layoutParams.rightMargin)
+    // The height of the content, padding and margins
     fun heightWithMargins() = Math.max(0f, heightWithPadding() + layoutParams.topMargin + layoutParams.bottomMargin)
 
     fun render(c: Canvas) {
@@ -71,6 +82,7 @@ abstract class View {
     protected abstract fun draw(c: Canvas)
     abstract fun onUpdate(currentTime: Long, delta: Float)
     fun measure(parent: Layout) {
+        //lazily get content size as calculations could be expensive
         val contentSize by lazy { getContentSize(parent.sizingWidth(), parent.sizingHeight()) }
         w = when (layoutParams.width) {
             is Size.EXACT -> (layoutParams.width as Size.EXACT).px
@@ -89,6 +101,7 @@ abstract class View {
     abstract fun onMeasured(contentWidth: Float, contentHeight: Float)
 
     companion object {
+        //If true, all layouts and views will have a box drawn on their edges (size with margins)
         var debugBounds = false
 
         private val debugPaint = Paint().apply {

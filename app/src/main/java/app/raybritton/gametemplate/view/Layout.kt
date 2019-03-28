@@ -5,8 +5,11 @@ import android.graphics.Canvas
 interface Layout {
     fun contentWidth(): Float
     fun contentHeight(): Float
+    //True if this is the top most layout, normally always a Scene
     val isRootLayout: Boolean
+    //Returns the width of itself, or it's parent if this layout is WRAP_CONTENT
     fun sizingWidth(): Float
+    //Returns the height of itself, or it's parent if this layout is WRAP_CONTENT
     fun sizingHeight(): Float
 }
 
@@ -75,7 +78,10 @@ abstract class LayoutParams(val width: Size, val height: Size) {
 }
 
 sealed class Size {
+    //View must be exactly px wide or tall, if this is bigger than the parent the view will be cut off
     class EXACT(val px: Float) : Size()
+    //Match the width or height of the parent (minus the parents padding and the childs margins)
     object MATCH_PARENT : Size()
+    //Size will be content and padding
     object WRAP_CONTENT : Size()
 }
